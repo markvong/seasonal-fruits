@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install-packages": "npm install && ((cd backend && npm install) & (cd frontend && npm install))",
-    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\" "
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\" ",
+    "build": "npm run install-packages && npm run dev"
   },
   "repository": {
     "type": "git",
