@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "install-packages": "npm install && ((cd backend && npm install) & (cd frontend && npm install))",
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\" ",
-    "build": "npm run install-packages && npm run dev"
+    "build": "npm run install-packages && cd frontend && npm run build",
+    "deploy": "npm run build && concurrently \"cd backend && npm run start\" \"cd frontend && npx serve -s build\""
   },
   "repository": {
     "type": "git",
