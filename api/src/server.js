@@ -6,9 +6,11 @@ require('dotenv').config();
 
 const app = express();
 
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true, useUnifiedTopology: true 
-});
+})
+.then(() => console.log('--- DB connected! ---'))
+.catch(err => console.log(err));
 
 app.use(logger);
 /* [Mark]: Added for CORS policy error message */
@@ -68,8 +70,10 @@ app.get('/seasons', (req, res) => {
     });
 });
 
-app.listen(lib.SERVER_PORT, () => {
-    console.log('Listening on port ' + lib.SERVER_PORT);
+const port = process.env.PORT || 3001;
+
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Server listening on port ${port}`);
 });
 
 

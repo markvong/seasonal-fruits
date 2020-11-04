@@ -1,12 +1,22 @@
 Description:
 - ExpressJS website that grabs your current location+season and displays what fruits are in season
+- UI repository: https://github.com/themansbak/fruit-season-ui
+    - Separation of frontend and backend
 
 Tasks:
 - Mark:
 
 - Alex:
-    - deploy server
     - optimize data storage of db_setup iterations
+    Struggles:
+    - issue deploying both frontend+backend servers to one heroku dyno
+        - heroku dyno uses one specified port for both servers
+        - tried adding a proxy key to the frontend package.json to use as endpoing for backend
+            - didn't work
+        - now going to separate into two repos and run both on separate heroku instances
+
+Server:
+- npm run dev
 
 Server:
 - npm init
@@ -16,16 +26,18 @@ Server:
 - dev:  npm run dev
 - start: npm start
 
-Frontend:
-- npm init
-- npm install
-- npm start
-
 Deployment:
 - https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/Publishing_your_website
 - https://www.codecademy.com/learn/deploy-a-website
 - Heroku:
     - brew install heroku/brew/heroku
+    - touch Procfile
+    - echo "web: npm start" > Procfile
+    - heroku ps:scale web=[#Dynos]
+        - Dynos are basically lightweight containers that run whatever application command process
+        - Start: heroku ps:scale web=1 
+        - Stop: heroku ps:scale web=0
+    - Check # dyno processes: heroku ps
 
 Scraper:
 - Utilizes python3 and virtual environment

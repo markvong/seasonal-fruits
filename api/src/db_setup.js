@@ -5,7 +5,14 @@ require('dotenv').config();
 
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true, useUnifiedTopology: true 
-});    
+})
+.then(() => {
+    console.log(`connected to ${process.env.MONGO_URI}`);
+    updateSeasonNamesData();
+    // updateStateNamesData();
+    // updateStateData(() => console.log('finished'));
+})
+.catch(err => console.log(`error occurred: ${err}`));
 
 const seasonSchema = mongoose.Schema({
     season: { type: String, required: true },
@@ -84,26 +91,22 @@ function updateStateNamesData() {
 function updateSeasonNamesData() {
     var scrapedData = readFile();
     var seasonNameArray = [];
-    for (const stateName in scrapedData) {
-        var stateData = scrapedData[stateName];
-        stateData['seasons'].forEach((seasonData) => {
-            if (seasonData['season'].includes('Early')) { 
-                continue; 
-            }
-            var seasonNameDoc = new SeasonName({
-                seasonName: seasonData['season']
-            });
-            console.log(seasonData['season']);
-            seasonNameArray.push(seasonNameDoc);
+    // just need one state
+    for (const seasonData in scrapedData['Alaska']['seasons']) {
+        const seasons = scrapedData['Alaska']['seasons'];
+        console.log(seasons[seasonData]['season']);
+        var seasonNameDoc = new SeasonName({
+            seasonName: seasons[seasonData]['season']
         });
-        break;
+        seasonNameArray.push(seasonNameDoc);
     }
-    // console.dir(seasonNameArray);
-    // SeasonName.insertMany(seasonNameArray, (err, docs) => {
-    //     if (err) console.log(err);
-    //     else console.log(docs);
-    // });
+    console.dir(seasonNameArray);
+    SeasonName.insertMany(seasonNameArray, (err, docs) => {
+        if (err) console.log(err);
+        else console.log(docs);
+    });
+
 }
 // updateStateData(exit);
-updateSeasonNamesData();
 // updateStateNamesData();
+// updateSeasonNamesData();
