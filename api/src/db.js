@@ -1,9 +1,16 @@
 const mongoose = require('mongoose');
 
+const fruitSchema = mongoose.Schema({
+    name: String,
+    description: String
+});
+const Fruit = mongoose.model('Fruit', fruitSchema);
+
 const seasonSchema = mongoose.Schema({
     season: { type: String, required: true },
-    fruits: [String]
+    fruits: { type: [fruitSchema] }
 });
+const Season = mongoose.model('Season', seasonSchema);
 
 const stateSchema = mongoose.Schema({
     state: { type: String, required: true },
@@ -22,7 +29,9 @@ const seasonNameSchema = mongoose.Schema({
 const SeasonName = mongoose.model('SeasonName', seasonNameSchema);
 
 module.exports = {
+    Fruit,  
     StateName,
     SeasonName,
+    Season,
     State
 }

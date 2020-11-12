@@ -2,6 +2,8 @@ Description:
 - ExpressJS website that grabs your current location+season and displays what fruits are in season
 - UI repository: https://github.com/themansbak/fruit-season-ui
     - Separation of frontend and backend
+- API endpoint: https://stormy-reef-43017.herokuapp.com/
+- UI: https://sheltered-hollows-41861.herokuapp.com/
 
 Tasks:
 - Mark:
@@ -42,8 +44,11 @@ Deployment:
 Scraper:
 - Utilizes python3 and virtual environment
     - https://docs.python.org/3/library/venv.html
+- python3  -m ensurepip --default-pip
 - pip install selenium
 - pip install beautifulsoup4
+- pip install webdriver-manager
+- pip install lxml
 - Driver:
     - Download chromedriver (my local version is 84)
     - Extract to /usr/local/bin 
