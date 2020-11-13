@@ -5,19 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-<<<<<<< HEAD
+
     "install-packages": "npm install && ((cd backend && npm install) & (cd frontend && npm install))",
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\" ",
     "build": "npm run install-packages && cd frontend && npm run build",
     "deploy": "npm run build && concurrently \"cd backend && npm run start\" \"cd frontend && npx serve -s build\""
-=======
+
     "api": "cd api && npm run start",
     "frontend": "cd frontend && npm start",
     "start": "npm run api",
     "install-packages": "npm install && (cd api && npm install)",
     "dev": "cd api && npm run dev",
     "build": "npm run install-packages"
->>>>>>> upstream/master
+
   },
   "repository": {
     "type": "git",
