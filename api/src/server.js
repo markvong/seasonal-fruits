@@ -47,12 +47,12 @@ app.get('/:state/:season', (req, res, next) => {
     db.State.findOne({ state: req.params.state }, (err, state) => {
         if (err) res.send('Error: 500 - ', err);
         // need way to iterate and find the specified season
-        state.seasons.forEach((seasonDoc) => {
-            if (seasonDoc.season === seasonParam) {
-                res.json(seasonDoc); // send the entire document
-                next();
+        for ({ season, fruits } of state.seasons) {
+            if (season === seasonParam) {
+                res.json({season, fruits}); // send the entire document
+                break;
             }
-        });
+        }
     });
 });
 
@@ -70,6 +70,9 @@ app.get('/seasons', (req, res) => {
     });
 });
 
+app.get('*', (req, res) => {
+    res.json('404: Page not found!');
+})
 const port = process.env.PORT || 3001;
 
 app.listen(port, '0.0.0.0', () => {

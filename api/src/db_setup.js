@@ -4,11 +4,11 @@ const db        = require('./db');
 const { exit }  = require('process');
 require('dotenv').config();
 
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true, useUnifiedTopology: true 
 })
 .then(() => {
-    console.log(`connected to ${process.env.MONGO_URI}`);
+    console.log(`connected to ${process.env.MONGODB_URI}`);
     // updateSeasonNamesData();
     // updateStateNamesData();
     updateStateData(() => console.log('finished'));
@@ -55,9 +55,19 @@ function updateStateData(callback) {
     }
     db.State.insertMany(statesArray, (err, docs) => {   
         if (err) console.log(err);
-        else console.log(docs);
+        else console.log('Finished inserting');
     });
     callback();
+}
+
+function updateFruitData() {
+    var fruitData = readFile(fruitFilePath);
+    for (const fruit in fruitData) {
+        let fruitDoc = new db.Fruit({
+            name: fruit['name'],
+            description: fruit['description']
+        });
+    }
 }
 
 function updateStateNamesData() {
