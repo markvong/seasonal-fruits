@@ -2,11 +2,15 @@
   "name": "seasonal-fruits",
   "version": "1.0.0",
   "description": "Displays season fruits based on US regions",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd src && node server.js",
-    "dev": "cd src && nodemon server.js"
+    "api": "cd api && npm run start",
+    "frontend": "cd frontend && npm start",
+    "start": "npm run api",
+    "install-packages": "npm install && (cd api && npm install)",
+    "dev": "cd api && npm run dev",
+    "build": "npm run install-packages"
   },
   "repository": {
     "type": "git",
@@ -23,11 +27,7 @@
   },
   "homepage": "https://github.com/themansbak/seasonal-fruits#readme",
   "dependencies": {
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "mongoose": "^5.10.7"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.4"
+    "@reduxjs/toolkit": "^1.4.0",
+    "concurrently": "^5.3.0"
   }
 }
